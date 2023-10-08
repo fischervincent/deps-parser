@@ -1,3 +1,5 @@
+extern crate clap;
+use clap::{Arg, App};
 use std::env;
 use std::fs::{self, File};
 use std::io::{Read, Write};
@@ -9,17 +11,35 @@ use serde_json;
 const DEPS_GRAPH_FILE: &str = "deps-graph.json";
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let args: Vec<String> = env::args().collect();
-    
-    if args.len() < 2 {
-        eprintln!("Usage: {} <STRING_TO_MATCH>", args[0]);
-        std::process::exit(1);
-    }
+    let matches = App::new("Dependency Analyzer")
+        .version("1.0")
+        .author("Your Name <your-email@example.com>")  // You can modify this.
+        .about("Analyzes dependencies from package-lock.json files.")
+        .arg(Arg::with_name("path")
+            .short("p")
+            .long("path")
+            .value_name("PATH")
+            .help("Sets the path to start analyzing from. Defaults to current directory.")
+            .takes_value(true))
+        .arg(Arg::with_name("string-to-match")
+            .short("f")
+            .long("filter")
+            .required(true)
+            .value_name("STRING_TO_MATCH")
+            .help("String pattern to match private packages.")
+            .takes_value(true))
+        .get_matches();
 
-    let string_to_match = &args[1];
+    // Get the path, defaulting to the current directory if none is provided.
+    let path = matches.value_of("path").unwrap_or(".");
+    let current_dir = env::current_dir().expect("Failed to get current directory");
+    let absolute_path = current_dir.join(path); 
 
-    let paths = fs::read_dir("../")?;
+    // Get the string pattern to match.
+    let string_to_match = matches.value_of("string-to-match").unwrap();
     
+    let paths = fs::read_dir(absolute_path)?;
+
     let mut aggregated_data: HashMap<String, Output> = HashMap::new();
 
     // Check if deps-graph.json already exists and read its content.
