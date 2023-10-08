@@ -1,0 +1,39 @@
+{
+    "name": "some_service_name",
+    "version": "1.0.0",
+    "lockfileVersion": 1,
+    "requires": true,
+    "dependencies": {
+      "private-lib1": {
+        "version": "1.0.0",
+        "resolved": "https://your_private_registry_url_here.com/private-lib1/-/private-lib1-1.0.0.tgz",
+        "integrity": "sha512-somehashvaluehere=="
+      },
+      "private-lib2": {
+        "version": "1.2.1",
+        "resolved": "https://your_private_registry_url_here.com/private-lib2/-/private-lib2-1.2.1.tgz",
+        "integrity": "sha512-somehashvaluehere2=="
+      },
+      "external_lib": {
+        "version": "2.0.0",
+        "resolved": "https://registry.npmjs.org/external_lib/-/external_lib-2.0.0.tgz",
+        "integrity": "sha512-anotherhashvaluehere=="
+      }
+    },
+    "packages": {
+      "": {
+        "version": "1.0.0",
+        "dev": true,
+        "requires": {
+          "private-lib1": "^1.0.0",
+          "private-lib2": "^1.2.0"
+        }
+      },
+      "node_modules/private-lib1": {
+        "version": "1.0.0",
+        "resolved": "https://your_private_registry_url_here.com/private-lib1/-/private-lib1-1.0.0.tgz",
+        "integrity": "sha512-yetanotherhashvaluehere=="
+      }
+    }
+  }
+  

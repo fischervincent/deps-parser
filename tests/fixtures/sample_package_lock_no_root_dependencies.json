@@ -1,0 +1,26 @@
+{
+    "name": "sample-project",
+    "version": "1.0.0",
+    "lockfileVersion": 2,
+    "requires": true,
+    "packages": {
+        "": {
+            "version": "1.0.0",
+            "dev": true,
+            "requires": {
+                "private-lib1": "^1.0.0"
+            }
+        },
+        "node_modules/private-lib1": {
+            "version": "1.0.0",
+            "resolved": "https://private-registry/private-lib1-1.0.0.tgz",
+            "requires": {
+                "private-lib2": "^2.0.0"
+            }
+        },
+        "node_modules/private-lib2": {
+            "version": "2.0.0",
+            "resolved": "https://private-registry/private-lib2-2.0.0.tgz"
+        }
+    }
+}
