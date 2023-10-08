@@ -2,41 +2,24 @@ name: Rust CI
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - "main"
 
 jobs:
-  build_and_test:
-    runs-on: ubuntu-latest
-
+  pre-release:
+    name: "Pre Release"
+    runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v3
       - name: Build release
         run: cargo build --verbose --release
       - name: Run tests
         run: cargo test --verbose
-
-  publish:
-    needs: build_and_test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create Release and Upload Executable
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: target/release/deps-parser
-          asset_name: deps-parser
-          asset_content_type: application/octet-stream
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            ./target/release/deps_parser
