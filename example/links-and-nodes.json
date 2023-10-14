@@ -1,0 +1,42 @@
+{
+  "links": [
+    {
+      "source": "private-lib1",
+      "target": "service2",
+      "version": "2.45.0"
+    },
+    {
+      "source": "private-lib2",
+      "target": "service2",
+      "version": "1.0.0"
+    },
+    {
+      "source": "private-lib1",
+      "target": "service1",
+      "version": "1.0.0"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "private-lib2",
+      "name": "private-lib2",
+      "no_package": true,
+      "version": null
+    },
+    {
+      "id": "service1",
+      "name": "service1",
+      "version": "1.0.1"
+    },
+    {
+      "id": "private-lib1",
+      "name": "private-lib1",
+      "version": "2.45.0"
+    },
+    {
+      "id": "service2",
+      "name": "service2",
+      "version": "1.0.2"
+    }
+  ]
+}

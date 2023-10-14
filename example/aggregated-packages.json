@@ -1,0 +1,28 @@
+{
+  "service2": {
+    "deps": [
+      {
+        "name": "private-lib1",
+        "version": "2.45.0"
+      },
+      {
+        "name": "private-lib2",
+        "version": "1.0.0"
+      }
+    ],
+    "version": "1.0.2"
+  },
+  "private-lib1": {
+    "deps": [],
+    "version": "2.45.0"
+  },
+  "service1": {
+    "deps": [
+      {
+        "name": "private-lib1",
+        "version": "1.0.0"
+      }
+    ],
+    "version": "1.0.1"
+  }
+}
