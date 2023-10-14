@@ -5,7 +5,7 @@ use std::fs::{self, File};
 use std::io::{Read, Write};
 use std::path::Path;
 use std::collections::HashMap;
-use deps_parser::{Output, extract_dependencies_from_package_lock};
+use deps_parser::{Output, extract_dependencies_from_package_lock, extract_links_and_nodes};
 use serde_json;
 
 const DEPS_GRAPH_FILE: &str = "deps-graph.json";
@@ -71,5 +71,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("Processed dependencies written to {}", DEPS_GRAPH_FILE);
 
+    // Transform the aggregated_data to the desired format.
+    let (links, nodes) = extract_links_and_nodes(&aggregated_data);
+    let transformed_data = serde_json::json!({
+        "links": links,
+        "nodes": nodes
+    });
+    let transformed_output = serde_json::to_string_pretty(&transformed_data)?;
+    File::create("links-and-nodes.json")?.write_all(transformed_output.as_bytes())?;
+
+    println!("Transformed data written to transformed-output.json");
+    
     Ok(())
 }
