@@ -5,10 +5,10 @@ use std::fs::{self, File};
 use std::io::{Read, Write};
 use std::path::Path;
 use std::collections::HashMap;
-use deps_parser::{Output, extract_dependencies_from_package_lock, extract_links_and_nodes};
+use deps_parser::{SimplifiedPackage, extract_dependencies_from_package_lock, extract_links_and_nodes};
 use serde_json;
 
-const DEPS_GRAPH_FILE: &str = "deps-graph.json";
+const DEPS_GRAPH_FILE: &str = "aggregated-packages.json";
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let matches = App::new("Dependency Analyzer")
@@ -40,7 +40,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     let paths = fs::read_dir(absolute_path)?;
 
-    let mut aggregated_data: HashMap<String, Output> = HashMap::new();
+    let mut aggregated_data: HashMap<String, SimplifiedPackage> = HashMap::new();
 
     // Check if deps-graph.json already exists and read its content.
     if Path::new(DEPS_GRAPH_FILE).exists() {

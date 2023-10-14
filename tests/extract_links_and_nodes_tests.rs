@@ -1,28 +1,28 @@
 use std::collections::HashMap;
 
-use deps_parser::{Output, OutputDependency, extract_links_and_nodes, Node, Link};
+use deps_parser::{SimplifiedPackage, SimplifiedDependency, extract_links_and_nodes, Node, Link};
 
 #[test]
 fn test_extract_links_and_nodes() {
     // Mock data
     let mut mock_data = HashMap::new();
-    mock_data.insert("service1".to_string(), Output {
+    mock_data.insert("service1".to_string(), SimplifiedPackage {
         version: "1.1.0".to_string(),
         deps: vec![
-            OutputDependency { name: "private-lib1".to_string(), version: "1.0.0".to_string() },
-            OutputDependency { name: "private-lib2".to_string(), version: "2.0.0".to_string() },
+            SimplifiedDependency { name: "private-lib1".to_string(), version: "1.0.0".to_string() },
+            SimplifiedDependency { name: "private-lib2".to_string(), version: "2.0.0".to_string() },
         ]
     });
-    mock_data.insert("service2".to_string(), Output {
+    mock_data.insert("service2".to_string(), SimplifiedPackage {
         version: "2.1.0".to_string(),
         deps: vec![
-            OutputDependency { name: "private-lib2".to_string(), version: "1.0.0".to_string() }
+            SimplifiedDependency { name: "private-lib2".to_string(), version: "1.0.0".to_string() }
         ]
     });
-    mock_data.insert("private-lib1".to_string(), Output {
+    mock_data.insert("private-lib1".to_string(), SimplifiedPackage {
         version: "2.5.0".to_string(),
         deps: vec![
-            OutputDependency { name: "private-lib2".to_string(), version: "2.0.0".to_string() },
+            SimplifiedDependency { name: "private-lib2".to_string(), version: "2.0.0".to_string() },
         ]
     });
 

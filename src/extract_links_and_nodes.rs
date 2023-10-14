@@ -1,7 +1,7 @@
 use serde::{Serialize};
 use std::collections::{HashMap};
 
-use crate::Output;
+use crate::SimplifiedPackage;
 
 #[derive(Debug, Serialize, PartialEq)]
 pub struct Link {
@@ -19,7 +19,7 @@ pub struct Node {
     pub no_package: Option<bool>
 }
 
-pub fn extract_links_and_nodes(aggregated_data: &std::collections::HashMap<String, Output>)
+pub fn extract_links_and_nodes(aggregated_data: &std::collections::HashMap<String, SimplifiedPackage>)
     -> (Vec<Link>, Vec<Node>) 
 {
     let mut links = Vec::new();
